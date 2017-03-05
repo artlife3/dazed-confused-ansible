@@ -1,0 +1,8 @@
+- hosts: dazed-vagrant.vm
+  user: vagrant
+  sudo: yes
+  tasks:
+    - name: transfer my.cnf
+      copy: src=/home/vagrant/dazed-confused-ansible/app_settings/my.cnf dest=/etc/my.cnf
+#      notify: mysql restart
+
