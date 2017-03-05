@@ -3,6 +3,6 @@
   become: yes
   tasks:
     - name: transfer my.cnf
-      copy: src=../app_settings/my.cnf dest=/etc/my.cnf backup=yes owner=mysql group=mysql mode=0644
+      copy: src=../templates/my.cnf dest=/etc/my.cnf backup=yes owner=mysql group=mysql mode=0644
       notify: mysql restart
 
