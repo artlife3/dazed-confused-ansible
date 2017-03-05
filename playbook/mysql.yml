@@ -1,8 +1,8 @@
-- hosts: dazed-vagrant.vm
+- hosts: dazed-vagrant
   user: vagrant
-  sudo: yes
+  become: yes
   tasks:
     - name: transfer my.cnf
-      copy: src=/home/vagrant/dazed-confused-ansible/app_settings/my.cnf dest=/etc/my.cnf
-#      notify: mysql restart
+      copy: src=../app_settings/my.cnf dest=/etc/my.cnf backup=yes owner=mysql group=mysql mode=0644
+      notify: mysql restart
 
