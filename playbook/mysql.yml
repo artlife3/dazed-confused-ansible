@@ -4,5 +4,12 @@
   tasks:
     - name: transfer my.cnf
       copy: src=../templates/my.cnf dest=/etc/my.cnf backup=yes owner=mysql group=mysql mode=0644
-      notify: mysql restart
-
+      notify: handler_restart_mysql
+  handlers:
+    - name: handler_restart_mysql
+      command: sudo /etc/init.d/mysqld restart
+#      debug: msg="playbook/mysql.yml"
+      # bash touch /var/log/mysqld/error.log
+      # bash touch /var/log/mysqld/slow_query.log
+      # bash touch /var/log/mysqld/query.log
+      # bash sudo chmod 644 -R /var/log/mysqld/
