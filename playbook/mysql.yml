@@ -28,9 +28,13 @@
     - name: /var/log/mysqld change modify
       command: chmod -R go+r /var/log/mysqld
 
+    - name: transfer /etc/logrotate.d/mysql
+      copy: src=../templates/logrotate/mysql dest=/etc/logrotate.d/mysql backup=yes owner=root group=root mode=0644
+
     - name: transfer my.cnf
       copy: src=../templates/my.cnf dest=/etc/my.cnf backup=yes owner=mysql group=mysql mode=0644
       notify: handler_restart_mysql
   handlers:
     - name: handler_restart_mysql
       shell: sudo /etc/init.d/mysqld restart
+
