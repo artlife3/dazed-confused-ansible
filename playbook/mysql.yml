@@ -2,14 +2,35 @@
   user: vagrant
   become: yes
   tasks:
+    - name: create mysqld log folder
+      command: mkdir /var/log/mysqld
+      args: 
+        creates: /var/log/mysqld
+
+    - name: touch mysqld/error.log
+      command: touch /var/log/mysqld/error.log
+      args: 
+        creates: /var/log/mysqld/error.log
+
+    - name: touch mysqld/slow_query.log
+      command: touch /var/log/mysqld/slow_query.log
+      args: 
+        creates: /var/log/mysqld/slow_query.log
+
+    - name: touch mysqld/query.log
+      command: touch /var/log/mysqld/query.log
+      args: 
+        creates: /var/log/mysqld/query.log
+
+    - name: /var/log/mysqld change owner
+      command: chown -R mysql:mysql /var/log/mysqld
+
+    - name: /var/log/mysqld change modify
+      command: chmod -R go+r /var/log/mysqld
+
     - name: transfer my.cnf
       copy: src=../templates/my.cnf dest=/etc/my.cnf backup=yes owner=mysql group=mysql mode=0644
       notify: handler_restart_mysql
   handlers:
     - name: handler_restart_mysql
-      command: sudo /etc/init.d/mysqld restart
-#      debug: msg="playbook/mysql.yml"
-      # bash touch /var/log/mysqld/error.log
-      # bash touch /var/log/mysqld/slow_query.log
-      # bash touch /var/log/mysqld/query.log
-      # bash sudo chmod 644 -R /var/log/mysqld/
+      shell: sudo /etc/init.d/mysqld restart
