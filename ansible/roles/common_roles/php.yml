@@ -1,0 +1,30 @@
+- hosts: dazed-vagrant
+  user: vagrant
+  become: yes
+  tasks:
+    - name: create php log folder
+      command: mkdir /var/log/php
+      args: 
+        creates: /var/log/php
+
+    - name: touch php/php-error.log
+      command: touch /var/log/php/php_errors.log
+      args: 
+        creates: /var/log/php/php_errors.log
+
+    - name: /var/log/php change owner
+      command: chown -R vagrant:vagrant /var/log/php
+
+    - name: /var/log/php change modify
+      command: chmod -R go+r /var/log/php
+
+#    - name: transfer /etc/logrotate.d/php
+#      copy: src=../templates/logrotate/php dest=/etc/logrotate.d/php backup=yes owner=root group=root mode=0644
+
+    - name: transfer php.ini
+      copy: src=../templates/php.ini dest=/etc/php.ini backup=yes owner=vagrant group=vagrant mode=0644
+      notify: handler_restart_httpd
+  handlers:
+    - name: handler_restart_httpd
+      shell: sudo /etc/init.d/httpd restart
+

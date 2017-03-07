@@ -1,0 +1,6 @@
+# [Localhost]
+- name: Localhost Settings
+  hosts: dazed-vagrant
+  become: yes
+  roles:
+    - localhost_setting

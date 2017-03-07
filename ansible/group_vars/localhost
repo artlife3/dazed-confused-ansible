@@ -1,2 +1,2 @@
 ansible_ssh_user: vagrant
-
+log_folder: /var/log
