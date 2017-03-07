@@ -1,30 +1,35 @@
-- hosts: dazed-vagrant
-  user: vagrant
-  become: yes
-  tasks:
     - name: create php log folder
       command: mkdir /var/log/php
       args: 
         creates: /var/log/php
+      tags: php
 
     - name: touch php/php-error.log
       command: touch /var/log/php/php_errors.log
       args: 
         creates: /var/log/php/php_errors.log
+      tags: php
 
     - name: /var/log/php change owner
       command: chown -R vagrant:vagrant /var/log/php
+      tags: php
 
-    - name: /var/log/php change modify
+    - name: /var/log/php change modifi
       command: chmod -R go+r /var/log/php
+      tags: php
 
-#    - name: transfer /etc/logrotate.d/php
-#      copy: src=../templates/logrotate/php dest=/etc/logrotate.d/php backup=yes owner=root group=root mode=0644
+    - name: transfer /etc/logrotate.d/php
+      copy: src=../templates/logrotate.d/php dest=/etc/logrotate.d/php owner=root group=root mode=0664
+      tags: php
 
     - name: transfer php.ini
-      copy: src=../templates/php.ini dest=/etc/php.ini backup=yes owner=vagrant group=vagrant mode=0644
-      notify: handler_restart_httpd
-  handlers:
-    - name: handler_restart_httpd
-      shell: sudo /etc/init.d/httpd restart
+      copy: src=../templates/php/php.ini dest=/etc/php.ini owner=vagrant group=vagrant mode=0664
+      tags: php
 
+    - name: transfer httpd/conf.d/php.conf
+      copy: src=../templates/php/httpd_conf.d/php.conf dest=/etc/httpd/conf.d/php.conf owner=vagrant group=vagrant mode=0664
+      tags: php
+
+
+    - name: Restart httpd
+      service: name=httpd state=restarted

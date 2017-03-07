@@ -1,40 +1,45 @@
-- hosts: dazed-vagrant
-  user: vagrant
-  become: yes
-  tasks:
     - name: create mysqld log folder
       command: mkdir /var/log/mysqld
       args: 
         creates: /var/log/mysqld
+      tags: mysqld
 
     - name: touch mysqld/error.log
       command: touch /var/log/mysqld/error.log
       args: 
         creates: /var/log/mysqld/error.log
+      tags: mysqld
 
     - name: touch mysqld/slow_query.log
       command: touch /var/log/mysqld/slow_query.log
       args: 
         creates: /var/log/mysqld/slow_query.log
+      tags: mysqld
 
     - name: touch mysqld/query.log
       command: touch /var/log/mysqld/query.log
       args: 
         creates: /var/log/mysqld/query.log
+      tags: mysqld
 
     - name: /var/log/mysqld change owner
       command: chown -R mysql:mysql /var/log/mysqld
+      tags: mysqld
 
     - name: /var/log/mysqld change modify
       command: chmod -R go+r /var/log/mysqld
+      tags: mysqld
 
-    - name: transfer /etc/logrotate.d/mysql
-      copy: src=../templates/logrotate/mysql dest=/etc/logrotate.d/mysql backup=yes owner=root group=root mode=0644
+    - name: Transfer /etc/logrotate.d/mysql
+      copy: src=../templates/logrotate.d/mysql dest=/etc/logrotate.d/mysql owner=root group=root mode=0644
+      tags: mysqld
 
-    - name: transfer my.cnf
-      copy: src=../templates/my.cnf dest=/etc/my.cnf backup=yes owner=mysql group=mysql mode=0644
-      notify: handler_restart_mysql
-  handlers:
-    - name: handler_restart_mysql
-      shell: sudo /etc/init.d/mysqld restart
+    - name: Transfer my.cnf
+      copy: src=../templates/my.cnf dest=/etc/my.cnf owner=mysql group=mysql mode=0644
+      tags: mysqld
+
+    - name: Restart MySQL
+      service: name=mysqld state=restarted
+      tags: mysqld
+
 

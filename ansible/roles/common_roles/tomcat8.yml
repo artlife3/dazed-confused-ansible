@@ -1,0 +1,33 @@
+    - name: transfer tomcat8/bin/catalina.sh
+      copy: src=../templates/tomcat8/bin/catalina.sh dest=/opt/tomcat/tomcat8/bin/catalina.sh owner=vagrant group=vagrant mode=0664
+      tags: tomcat8
+
+    - name: transfer tomcat8/conf/context.xml
+      copy: src=../templates/tomcat8/conf/context.xml dest=/opt/tomcat/tomcat8/conf/context.xml owner=vagrant group=vagrant mode=0664
+      tags: tomcat8
+
+    - name: transfer tomcat8/conf/server.xml
+      copy: src=../templates/tomcat8/conf/server.xml dest=/opt/tomcat/tomcat8/conf/server.xml owner=vagrant group=vagrant mode=0664
+      tags: tomcat8
+
+    - name: transfer tomcat8/conf/tomcat-users.xml
+      copy: src=../templates/tomcat8/conf/tomcat-users.xml dest=/opt/tomcat/tomcat8/conf/tomcat-users.xml owner=vagrant group=vagrant mode=0664
+      tags: tomcat8
+
+    - name: transfer tomcat8 manager.xml
+      copy: src=../templates/tomcat8/conf/Catalina/localhost/manager.xml dest=/opt/tomcat/tomcat8/conf/Catalina/localhost/manager.xml owner=vagrant group=vagrant mode=0664
+      tags: tomcat8
+
+    - name: transfer tomcat8 init.d/tomcat8
+      copy: src=../templates/tomcat8/init.d/tomcat8 dest=/etc/init.d/tomcat8 owner=root group=root mode=0664
+      tags: tomcat8
+
+    - name: transfer tomcat8 httpd/conf.d/tomcat.conf
+      copy: src=../templates/tomcat8/httpd_conf.d/tomcat.conf dest=/etc/httpd/conf.d/tomcat.conf owner=root group=root mode=0664
+      tags: tomcat8
+
+    - name: Restart httpd
+      service: name=httpd state=restarted
+
+#    - name: Restart Tomcat8
+#      service: name=tomcat8 state=restarted

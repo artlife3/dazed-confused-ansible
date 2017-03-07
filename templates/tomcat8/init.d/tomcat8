@@ -9,7 +9,7 @@
 . /etc/sysconfig/network
 
 CATALINA_HOME=/opt/tomcat/tomcat8
-TOMCAT_USER=tomcat
+TOMCAT_USER=vagrant
 
 LOCKFILE=/var/lock/subsys/tomcat8
 
