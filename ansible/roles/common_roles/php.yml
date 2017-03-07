@@ -24,12 +24,11 @@
 
     - name: transfer php.ini
       copy: src=../templates/php/php.ini dest=/etc/php.ini owner=vagrant group=vagrant mode=0664
+      notify: Restart httpd
       tags: php
 
     - name: transfer httpd/conf.d/php.conf
       copy: src=../templates/php/httpd_conf.d/php.conf dest=/etc/httpd/conf.d/php.conf owner=vagrant group=vagrant mode=0664
+      notify: Restart httpd
       tags: php
 
-
-    - name: Restart httpd
-      service: name=httpd state=restarted
