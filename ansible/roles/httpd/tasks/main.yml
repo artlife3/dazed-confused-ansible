@@ -1,0 +1,25 @@
+    - name: Transfer httpd/httpd.conf
+      copy: src=templates/httpd.conf dest=/etc/httpd/conf/httpd.conf owner=vagrant group=vagrant mode=0664
+      notify: Restart httpd
+      tags: httpd
+
+    - name: Transfer httpd/conf.d/vhost.conf
+      copy: src=templates/conf.d/vhost.conf dest=/etc/httpd/conf.d/vhost.conf owner=vagrant group=vagrant mode=0664
+      notify: Restart httpd
+      tags: httpd
+
+    - name: Transfer httpd/conf.d/ssl.conf
+      copy: src=templates/conf.d/ssl.conf dest=/etc/httpd/conf.d/ssl.conf owner=vagrant group=vagrant mode=0664
+      notify: Restart httpd
+      tags: httpd
+
+    - name: Transfer httpd/conf.d/server-info.conf
+      copy: src=templates/conf.d/server-info.conf dest=/etc/httpd/conf.d/server-info.conf owner=vagrant group=vagrant mode=0664
+      notify: Restart httpd
+      tags: httpd
+
+    - name: Transfer httpd/conf.d/server-status.conf
+      copy: src=templates/conf.d/server-status.conf dest=/etc/httpd/conf.d/server-status.conf owner=vagrant group=vagrant mode=0664
+      notify: Restart httpd
+      tags: httpd
+

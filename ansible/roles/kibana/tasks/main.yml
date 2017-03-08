@@ -1,0 +1,5 @@
+    - name: Transfer httpd/conf.d/kibana.conf
+      copy: src=templates/httpd_conf.d/kibana.conf dest=/etc/httpd/conf.d/kibana.conf owner=vagrant group=vagrant mode=0664
+      notify: Restart httpd
+      tags: kibana
+

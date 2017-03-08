@@ -1,0 +1,12 @@
+- hosts: webservers
+  become: yes
+  become_user: vagrant
+  roles:
+    - common
+#    - kibana
+#    - elasticsearch
+    - httpd
+    - mailcatcher
+    - mysqld
+    - php
+    - tomcat
