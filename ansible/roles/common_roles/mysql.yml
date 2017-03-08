@@ -1,3 +1,5 @@
+    - debug: msg="Test {{ log_folder }}"
+
     - name: create mysqld log folder
       command: mkdir /var/log/mysqld
       args: 
@@ -22,12 +24,13 @@
         creates: /var/log/mysqld/query.log
       tags: mysqld
 
-    - name: /var/log/mysqld change owner
-      command: chown -R mysql:mysql /var/log/mysqld
-      tags: mysqld
-
     - name: /var/log/mysqld change modify
-      command: chmod -R go+r /var/log/mysqld
+      file:
+        path: /var/log/mysqld
+        owner: mysql
+        group: vagrant
+        mode: u=rwX,g=rX,o=rX
+        recurse: yes
       tags: mysqld
 
     - name: Transfer /etc/logrotate.d/mysql
