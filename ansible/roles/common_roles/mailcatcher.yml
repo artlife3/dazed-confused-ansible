@@ -1,6 +1,0 @@
-    - name: transfer httpd/conf.d/mailcatcher.conf
-      copy: src=../templates/mailcatcher/httpd_conf.d/mailcatcher.conf dest=/etc/httpd/conf.d/mailcatcher.conf owner=vagrant group=vagrant mode=0664
-      tags: mailcatcher
-
-    - name: Restart httpd
-      service: name=httpd state=restarted
