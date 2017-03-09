@@ -1,34 +1,47 @@
-    - name: Transfer tomcat8/bin/catalina.sh
-      copy: src=templates/bin/catalina.sh dest=/opt/tomcat/tomcat8/bin/catalina.sh owner=vagrant group=vagrant mode=0775
-      notify: Restart tomcat8
-      tags: tomcat8
+- name: Transfer [catalina.sh]
+  copy: src=templates/bin/catalina.sh
+            dest={{ tomact_dir }}/tomcat/tomcat8/bin/catalina.sh
+  notify: Restart tomcat8
+  tags: settings
 
-    - name: Transfer tomcat8/conf/context.xml
-      copy: src=templates/conf/context.xml dest=/opt/tomcat/tomcat8/conf/context.xml owner=vagrant group=vagrant mode=0664
-      notify: Restart tomcat8
-      tags: tomcat8
+- name: Transfer [context.xml]
+  copy: src=templates/conf/context.xml
+           dest={{ tomact_dir }}/tomcat/tomcat8/conf/context.xml
+  notify: Restart tomcat8
+  tags: settings
 
-    - name: Transfer tomcat8/conf/server.xml
-      copy: src=templates/conf/server.xml dest=/opt/tomcat/tomcat8/conf/server.xml owner=vagrant group=vagrant mode=0755
-      notify: Restart tomcat8
-      tags: tomcat8
+- name: Transfer [server.xml]
+  copy: src=templates/conf/server.xml
+           dest={{ tomact_dir }}/tomcat/tomcat8/conf/server.xml
+  notify: Restart tomcat8
+  tags: settings
 
-    - name: Transfer tomcat8/conf/tomcat-users.xml
-      copy: src=templates/conf/tomcat-users.xml dest=/opt/tomcat/tomcat8/conf/tomcat-users.xml owner=vagrant group=vagrant mode=0664
-      notify: Restart tomcat8
-      tags: tomcat8
+- name: Transfer [tomcat-users.xml]
+  copy: src=templates/conf/tomcat-users.xml
+           dest={{ tomact_dir }}/tomcat/tomcat8/conf/tomcat-users.xml
+  notify: Restart tomcat8
+  tags: settings
 
-    - name: Transfer tomcat8 manager.xml
-      copy: src=templates/conf/Catalina/localhost/manager.xml dest=/opt/tomcat/tomcat8/conf/Catalina/localhost/manager.xml owner=vagrant group=vagrant mode=0664
-      notify: Restart tomcat8
-      tags: tomcat8
+- name: Transfer [manager.xml]
+  copy: src=templates/conf/Catalina/localhost/manager.xml
+            dest={{ tomact_dir }}/tomcat/tomcat8/conf/Catalina/localhost/manager.xml
+  notify: Restart tomcat8
+  tags: settings
 
-    - name: Transfer tomcat8 init.d/tomcat8
-      copy: src=templates/init.d/tomcat8 dest=/etc/init.d/tomcat8 owner=root group=root mode=0755
-      tags: tomcat8
+- name: Transfer [init.d/tomcat8]
+  copy: src=templates/init.d/tomcat8
+            dest=/etc/init.d/tomcat8
+            owner=root
+            group=root
+            mode=0755
+  tags: settings
 
-    - name: Transfer tomcat8 httpd/conf.d/tomcat.conf
-      copy: src=templates/httpd_conf.d/tomcat.conf dest=/etc/httpd/conf.d/tomcat.conf owner=root group=root mode=0664
-      notify: Restart httpd
-      tags: tomcat8
+- name: Transfer [tomcat8 httpd/conf.d/tomcat.conf]
+  copy: src=templates/httpd_conf.d/tomcat.conf
+            dest={{ httpd_conf_dir }}/conf.d/tomcat.conf
+            owner={{ owner }}
+            group={{ group }}
+            mode=0664
+  notify: Restart httpd
+  tags: settings
 

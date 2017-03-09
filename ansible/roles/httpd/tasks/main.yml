@@ -1,25 +1,38 @@
-    - name: Transfer httpd/httpd.conf
-      copy: src=templates/httpd.conf dest=/etc/httpd/conf/httpd.conf owner=vagrant group=vagrant mode=0664
-      notify: Restart httpd
-      tags: httpd
+- name: Change modify [{{ httpd_conf_dir }}]  
+  file: path={{ httpd_conf_dir }}
+        owner={{ owner }}
+        group={{ group }}
+        mode={{ permission }}
+        recurse=yes
+  tags: install
 
-    - name: Transfer httpd/conf.d/vhost.conf
-      copy: src=templates/conf.d/vhost.conf dest=/etc/httpd/conf.d/vhost.conf owner=vagrant group=vagrant mode=0664
-      notify: Restart httpd
-      tags: httpd
+- name: Transfer [httpd.conf]
+  copy: src=templates/httpd.conf
+        dest={{ httpd_conf_dir }}/conf/httpd.conf
+  notify: Restart httpd
+  tags: settings
 
-    - name: Transfer httpd/conf.d/ssl.conf
-      copy: src=templates/conf.d/ssl.conf dest=/etc/httpd/conf.d/ssl.conf owner=vagrant group=vagrant mode=0664
-      notify: Restart httpd
-      tags: httpd
+- name: Transfer [vhost.conf]
+  copy: src=templates/conf.d/vhost.conf
+        dest={{ httpd_conf_dir }}/conf.d/vhost.conf
+  notify: Restart httpd
+  tags: settings
 
-    - name: Transfer httpd/conf.d/server-info.conf
-      copy: src=templates/conf.d/server-info.conf dest=/etc/httpd/conf.d/server-info.conf owner=vagrant group=vagrant mode=0664
-      notify: Restart httpd
-      tags: httpd
+- name: Transfer [ssl.conf]
+  copy: src=templates/conf.d/ssl.conf
+        dest={{ httpd_conf_dir }}/conf.d/ssl.conf
+  notify: Restart httpd
+  tags: settings
 
-    - name: Transfer httpd/conf.d/server-status.conf
-      copy: src=templates/conf.d/server-status.conf dest=/etc/httpd/conf.d/server-status.conf owner=vagrant group=vagrant mode=0664
-      notify: Restart httpd
-      tags: httpd
+- name: Transfer [server-info.conf]
+  copy: src=templates/conf.d/server-info.conf
+        dest={{ httpd_conf_dir }}/conf.d/server-info.conf
+  notify: Restart httpd
+  tags: settings
+
+- name: Transfer [server-status.conf]
+  copy: src=templates/conf.d/server-status.conf
+        dest={{ httpd_conf_dir }}/conf.d/server-status.conf
+  notify: Restart httpd
+  tags: settings
 

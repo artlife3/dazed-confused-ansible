@@ -1,44 +1,49 @@
-    - debug: msg="Test {{ log_folder }}"
+- name: Create folder [mysqld log]
+  file: path={{ log_dir }}/mysqld
+         state=directory
+         owner=mysql
+         group=vagrant
+         mode=775
+  tags: install
 
-    - name: create mysqld log folder
-      command: mkdir /var/log/mysqld
-      args: 
-        creates: /var/log/mysqld
-      tags: mysqld
+- name: Touch [mysqld/error.log]
+  file: path={{ log_dir }}/mysqld/error.log
+         state=touch
+         owner=mysql
+         group=mysql
+         mode=644
+  tags: install
 
-    - name: touch mysqld/error.log
-      command: touch /var/log/mysqld/error.log
-      args: 
-        creates: /var/log/mysqld/error.log
-      tags: mysqld
+- name: Touch [mysqld/slow_query.log]
+  file: path={{ log_dir }}/mysqld/slow_query.log
+         state=touch
+         owner=mysql
+         group=mysql
+         mode=644
+  tags: install
 
-    - name: touch mysqld/slow_query.log
-      command: touch /var/log/mysqld/slow_query.log
-      args: 
-        creates: /var/log/mysqld/slow_query.log
-      tags: mysqld
+- name: Touch [mysqld/query.log]
+  file: path={{ log_dir }}/mysqld/query.log
+         state=touch
+         owner=mysql
+         group=mysql
+         mode=644
+  tags: install
 
-    - name: touch mysqld/query.log
-      command: touch /var/log/mysqld/query.log
-      args: 
-        creates: /var/log/mysqld/query.log
-      tags: mysqld
+- name: Transfer [logrotate.d/mysql]
+  copy: src=templates/etc_logrotate.d/mysql
+            dest=/etc/logrotate.d/mysql
+            owner=root
+            group=root
+            mode=0644
+  tags: install
 
-    - name: /var/log/mysqld change modify
-      file:
-        path: /var/log/mysqld
-        owner: mysql
-        group: vagrant
-        mode: u=rwX,g=rX,o=rX
-        recurse: yes
-      tags: mysqld
-
-    - name: Transfer /etc/logrotate.d/mysql
-      copy: src=templates/etc_logrotate.d/mysql dest=/etc/logrotate.d/mysql owner=root group=root mode=0644
-      tags: mysqld
-
-    - name: Transfer my.cnf
-      copy: src=templates/my.cnf dest=/etc/my.cnf owner=mysql group=mysql mode=0644
-      notify: Restart mysqld
-      tags: mysqld
-
+- name: Transfer [my.cnf]
+  copy: src=templates/my.cnf
+            dest=/etc/my.cnf
+            owner=mysql
+            group=mysql
+            mode=0664
+  notify: Restart mysqld
+  tags: settings
+  

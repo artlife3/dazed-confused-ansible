@@ -1,35 +1,42 @@
-    - name: Create php log folder
-      command: mkdir /var/log/php
-      args: 
-        creates: /var/log/php
-      tags: php
+- name: Create folder [php log] 
+  file: path={{ log_dir }}/php
+         state=directory
+         owner={{ owner }}
+         group={{ owner }}
+         mode=775
+  tags: install
 
-    - name: touch php/php-error.log
-      command: touch /var/log/php/php_errors.log
-      args: 
-        creates: /var/log/php/php_errors.log
-      tags: php
+- name: Touch php/php-error.log
+  file: path={{ log_dir }}/php/php_errors.log
+         state=touch
+         owner={{ owner }}
+         group={{ owner }}
+         mode=644
+  tags: install
 
-    - name: /var/log/php change modify
-      file:
-        path: /var/log/php
-        owner: vagrant
-        group: vagrant
-        mode: u=rwX,g=rX,o=rX
-        recurse: yes
-      tags: php
+- name: Transfer /etc/logrotate.d/php
+  copy: src=templates/etc_logrotate.d/php
+            dest=/etc/logrotate.d/php
+            owner=root
+            group=root
+            mode=0644
+  tags: install
 
-    - name: Transfer /etc/logrotate.d/php
-      copy: src=templates/etc_logrotate.d/php dest=/etc/logrotate.d/php owner=root group=root mode=0664
-      tags: php
+- name: Transfer php.ini
+  copy: src=templates/php.ini
+            dest=/etc/php.ini
+            owner={{ owner }}
+            group={{ owner }}
+           mode=644
+  notify: Restart httpd
+  tags: settings
 
-    - name: Transfer php.ini
-      copy: src=templates/php.ini dest=/etc/php.ini owner=vagrant group=vagrant mode=0664
-      notify: Restart httpd
-      tags: php
-
-    - name: Transfer httpd/conf.d/php.conf
-      copy: src=templates/httpd_conf.d/php.conf dest=/etc/httpd/conf.d/php.conf owner=vagrant group=vagrant mode=0664
-      notify: Restart httpd
-      tags: php
+- name: Transfer httpd/conf.d/php.conf
+  copy: src=templates/httpd_conf.d/php.conf
+            dest={{ httpd_conf_dir }}/conf.d/php.conf
+            owner={{ owner }}
+            group={{ owner }}
+            mode=0664
+  notify: Restart httpd
+  tags: settings
 
