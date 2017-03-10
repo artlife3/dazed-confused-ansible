@@ -3,10 +3,15 @@
   become_user: root
   roles:
     - common
-    - kibana
-    - elasticsearch
     - httpd
-    - mailcatcher
     - mysqld
     - php
+    - enhancement
+    - mailcatcher
     - tomcat
+    - elasticsearch
+    - kibana
+    - logstash
+    - users
+
+
