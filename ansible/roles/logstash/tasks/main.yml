@@ -1,0 +1,16 @@
+- name: Transfer [logstash logstash.yml]
+  copy: src=templates/logstash.yml
+           dest=/etc/logstash.yml
+  tags: settings
+
+- name: Transfer [Logstash log4j2.properties]
+  copy: src=templates/log4j2.properties
+           dest=/etc/log4j2.properties
+  tags: settings
+
+- name: Transfer [logstash jvm.options]
+  copy: src=templates/jvm.options
+           dest=/etc/jvm.options
+  tags: settings
+
+

@@ -1,0 +1,20 @@
+- name: Transfer [~/.bach_profile]
+  copy: src=templates/bash_profile
+           dest=~/.bash_profilie
+  tags: settings
+
+- name: Transfer [~/.bashrc]
+  copy: src=templates/bashrc
+           dest=~/.bashrc
+  tags: settings
+
+- name: Transfer [~/.my.cnf]
+  copy: src=templates/my.cnf
+           dest=~/..my.cnf
+  tags: settings
+
+- name: Transfer [~/.vimrc]
+  copy: src=templates/vimrc
+           dest=~/.vimrc
+  tags: settings
+

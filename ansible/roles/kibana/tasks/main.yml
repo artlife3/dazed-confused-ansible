@@ -4,3 +4,8 @@
   notify: Restart httpd
   tags: settings
 
+- name: Transfer [etc/kibana/kibana.yml]
+  copy: src=templates/etc_kibana_kibana.yml
+            dest=/etc/kibana/kibana.conf
+  tags: settings
+

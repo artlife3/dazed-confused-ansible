@@ -14,6 +14,7 @@ tomact_dir=/opt
 elastic_conf_dir=/etc/httpd
 owner=vagrant
 group=vagrant
+mycolor=$'32m'
 
 #[dvservers]
 #192.168.33.10
