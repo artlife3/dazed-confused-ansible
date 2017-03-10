@@ -1,0 +1,5 @@
+- name: Transfer [httpd/conf.d/mailcatcher.conf]
+  copy: src=templates/httpd_conf.d/mailcatcher.conf
+            dest={{ httpd_conf_dir }}/conf.d/mailcatcher.conf
+  notify: Restart httpd
+  tags: settings

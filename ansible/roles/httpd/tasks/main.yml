@@ -1,0 +1,56 @@
+# Install
+
+- name: Install [ httpd ]
+  yum: name=httpd state=present
+  tags: install
+
+- name: Install [ mod_ssl ]
+  yum: name=mod_ssl state=present
+  tags: install
+
+- name: Change modify [{{ httpd_conf_dir }}]  
+  file: path={{ httpd_conf_dir }}
+        owner={{ owner }}
+        group={{ group }}
+        mode={{ permission }}
+        recurse=yes
+  tags: install
+
+
+# Settings
+
+- name: Transfer [httpd.conf]
+  copy: src=templates/httpd.conf
+        dest={{ httpd_conf_dir }}/conf/httpd.conf
+  notify: Restart httpd
+  tags: settings
+
+- name: Transfer [vhost.conf]
+  copy: src=templates/conf.d/vhost.conf
+        dest={{ httpd_conf_dir }}/conf.d/vhost.conf
+  notify: Restart httpd
+  tags: settings
+
+- name: Transfer [ssl.conf]
+  copy: src=templates/conf.d/ssl.conf
+        dest={{ httpd_conf_dir }}/conf.d/ssl.conf
+  notify: Restart httpd
+  tags: settings
+
+- name: Transfer [server-info.conf]
+  copy: src=templates/conf.d/server-info.conf
+        dest={{ httpd_conf_dir }}/conf.d/server-info.conf
+  notify: Restart httpd
+  tags: settings
+
+- name: Transfer [server-status.conf]
+  copy: src=templates/conf.d/server-status.conf
+        dest={{ httpd_conf_dir }}/conf.d/server-status.conf
+  notify: Restart httpd
+  tags: settings
+
+
+- name: Httpd is running and enabled
+  service: name=httpd state=running enabled=yes
+  tags: install
+

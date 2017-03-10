@@ -1,0 +1,11 @@
+- name: Transfer [conf.d/kibana.conf]
+  copy: src=templates/httpd_conf.d/kibana.conf
+            dest={{ httpd_conf_dir }}/conf.d/kibana.conf
+  notify: Restart httpd
+  tags: settings
+
+- name: Transfer [etc/kibana/kibana.yml]
+  copy: src=templates/etc_kibana_kibana.yml
+            dest=/etc/kibana/kibana.conf
+  tags: settings
+

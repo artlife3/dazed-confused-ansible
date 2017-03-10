@@ -1,0 +1,17 @@
+- hosts: webservers
+  become: yes
+  become_user: root
+  roles:
+#    - common
+#    - httpd
+#    - mysqld
+#    - php
+#    - enhancement
+#    - mailcatcher
+#    - tomcat
+#    - elasticsearch
+#    - kibana
+#    - logstash
+    - users
+
+

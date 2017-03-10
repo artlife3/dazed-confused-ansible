@@ -1,6 +1,0 @@
-#- include : ../../common_roles/mysql.yml
-#- include : ../../common_roles/php.yml
-#- include : ../../common_roles/tomcat8.yml
-- include : ../../common_roles/httpd.yml
-- include : ../../common_roles/mailcatcher.yml
-- include : ../../common_roles/elasticsearch.yml
