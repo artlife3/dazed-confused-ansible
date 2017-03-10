@@ -36,8 +36,10 @@
 
     - name: Transfer my.cnf
       copy: src=../templates/my.cnf dest=/etc/my.cnf owner=mysql group=mysql mode=0644
-      notify: Restart mysqld
       tags: mysqld
 
+    - name: Restart MySQL
+      service: name=mysqld state=restarted
+      tags: mysqld
 
 
