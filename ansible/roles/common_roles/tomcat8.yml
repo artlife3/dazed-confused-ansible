@@ -1,5 +1,5 @@
     - name: transfer tomcat8/bin/catalina.sh
-      copy: src=../templates/tomcat8/bin/catalina.sh dest=/opt/tomcat/tomcat8/bin/catalina.sh owner=vagrant group=vagrant mode=0775
+      copy: src=../templates/tomcat8/bin/catalina.sh dest=/opt/tomcat/tomcat8/bin/catalina.sh owner=vagrant group=vagrant mode=0664
       notify: Restart tomcat8
       tags: tomcat8
 
@@ -9,7 +9,7 @@
       tags: tomcat8
 
     - name: transfer tomcat8/conf/server.xml
-      copy: src=../templates/tomcat8/conf/server.xml dest=/opt/tomcat/tomcat8/conf/server.xml owner=vagrant group=vagrant mode=0755
+      copy: src=../templates/tomcat8/conf/server.xml dest=/opt/tomcat/tomcat8/conf/server.xml owner=vagrant group=vagrant mode=0664
       notify: Restart tomcat8
       tags: tomcat8
 
@@ -24,7 +24,7 @@
       tags: tomcat8
 
     - name: transfer tomcat8 init.d/tomcat8
-      copy: src=../templates/tomcat8/init.d/tomcat8 dest=/etc/init.d/tomcat8 owner=root group=root mode=0755
+      copy: src=../templates/tomcat8/init.d/tomcat8 dest=/etc/init.d/tomcat8 owner=root group=root mode=0664
       tags: tomcat8
 
     - name: transfer tomcat8 httpd/conf.d/tomcat.conf

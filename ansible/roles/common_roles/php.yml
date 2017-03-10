@@ -10,13 +10,12 @@
         creates: /var/log/php/php_errors.log
       tags: php
 
-    - name: /var/log/php change modify
-      file:
-        path: /var/log/php
-        owner: vagrant
-        group: vagrant
-        mode: u=rwX,g=rX,o=rX
-        recurse: yes
+    - name: /var/log/php change owner
+      command: chown -R vagrant:vagrant /var/log/php
+      tags: php
+
+    - name: /var/log/php change modifi
+      command: chmod -R go+r /var/log/php
       tags: php
 
     - name: transfer /etc/logrotate.d/php
