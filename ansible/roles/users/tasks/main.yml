@@ -1,10 +1,18 @@
+
+- name: Transfer [git-completion]
+  synchronize: src={{ files_path }}/git-completion/
+               dest=/opt/git-completion
+  tags: settings
+
 - name: Transfer [~/.bach_profile]
   copy: src={{ templates_path }}/bash_profile
-        dest=/home/{{ owner }}/.bach_profile
+        dest=/home/{{ owner }}/.bash_profile
         owner={{ owner }}
         group={{ group }}
         mode=644
+  become: no
   tags: settings
+
 
 - name: Transfer [~/.bashrc]
   copy: src={{ templates_path }}/bashrc
@@ -12,14 +20,17 @@
         owner={{ owner }}
         group={{ group }}
         mode=644
+  become: no
   tags: settings
+
 
 - name: Transfer [~/.my.cnf]
   copy: src={{ templates_path }}/my.cnf
-        dest=/home/{{ owner }}/..my.cnf
+        dest=/home/{{ owner }}/.my.cnf
         owner={{ owner }}
         group={{ group }}
         mode=644
+  become: no
   tags: settings
 
 - name: Transfer [~/.vimrc]
@@ -28,5 +39,6 @@
         owner={{ owner }}
         group={{ group }}
         mode=644
+  become: no
   tags: settings
 
