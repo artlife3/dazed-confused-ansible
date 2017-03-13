@@ -1,53 +1,54 @@
 syntax on
 
 set lcs=tab:>.,eol:$,trail:_,extends:\
-" ステータスラインに表示する情報の指定
+
+" Specify information to be displayed on the status line
 set laststatus=2
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-" 全角ハイライト
+
+" Double-byte highlight
 highlight JpSpace cterm=underline ctermfg=Blue guifg=Blue
 au BufRead,BufNew * match JpSpace / /
-" 検索結果を見やすく
+
+" Easily view search results
 highlight Search ctermbg=Yellow ctermfg=Black
-" 履歴を設定
+
+" Set history
 set history=100
-" バッファを切替えてもundoの効力を失わない
+
+" It does not lose the effect of undo even if switching buffers
 set hidden
 highlight TabSpace ctermbg=DarkBlue
 match TabSpace /\t\|\s\+$/
-" タイトルをウインドウ枠に表示する
+
+" Display title on window pane
 set title
 
-
-
-" 現在の行を強調表示
+" Highlight current line
 set cursorline
-" 現在の行を強調表示（縦）
-set cursorcolumn
+
 " 行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
-" インデントはスマートインデント
+
+" Indentation is a smart indent
 set smartindent
-" ビープ音を可視化
+
+" Visualize beep sound
 set visualbell
-" 括弧入力時の対応する括弧を表示
+
+" Show parentheses corresponding to parenthesis input
 set showmatch
-" ステータスラインを常に表示
-set laststatus=2
-" コマンドラインの補完
-set wildmode=list:longest
-" 折り返し時に表示行単位での移動できるようにする
-nnoremap j gj
-nnoremap k gk
 
-
-" Tab系
-" 不可視文字を可視化(タブが「▸-」と表示される)
+" Tab display
+" Visualize invisible characters (tab is displayed as "▸ -")
 set list listchars=tab:\▸\-
-" Tab文字を半角スペースにする
+
+" Tab Make a letter space
 set expandtab
-" 行頭以外のTab文字の表示幅（スペースいくつ分）
+
+" Display width of Tab characters other than the beginning of the line (how many spaces)
 set tabstop=2
-" 行頭でのTab文字の表示幅
+
+" Display width of Tab character with head
 set shiftwidth=2
 
