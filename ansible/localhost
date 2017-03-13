@@ -3,6 +3,7 @@
 
 [webservers:vars]
 templates_path=../templates
+files_path=../files
 permission=ugo+rw
 permission_file=0666
 permission_dir=0777
@@ -14,6 +15,9 @@ tomact_dir=/opt
 elastic_conf_dir=/etc/httpd
 owner=vagrant
 group=vagrant
+apache_user=vagrant
+apache_group=vagrant
+
 mycolor=$'32m'
 
 #[dvservers]

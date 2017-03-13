@@ -8,14 +8,20 @@
   yum: name=mod_ssl state=present
   tags: install
 
-- name: Change modify [{{ httpd_conf_dir }}]
+- name: Change modify [ Conf directory ]
   file: path={{ httpd_conf_dir }}
-        owner={{ owner }}
-        group={{ group }}
+        owner={{ apache_user }}
+        group={{ apache_group }}
         mode={{ permission }}
         recurse=yes
   tags: install
 
+- name: Create [ Log directory ]
+  file: path={{ log_dir }}/httpd
+        state=directory
+        owner={{ apache_user }}
+        group={{ apache_group }}
+        mode=0755
 
 # Settings
 
