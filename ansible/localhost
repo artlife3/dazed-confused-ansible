@@ -2,11 +2,11 @@
 192.168.33.10
 
 [webservers:vars]
+templates_path=../templates
 permission=ugo+rw
 permission_file=0666
 permission_dir=0777
 permission=ugo+rw
-
 time_zone=Tokyo/Asia
 log_dir=/var/log
 httpd_conf_dir=/etc/httpd

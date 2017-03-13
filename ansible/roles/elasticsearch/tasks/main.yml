@@ -1,23 +1,23 @@
 - name: Transfer [elasticsearch.yml]
-  copy: src=templates/etc/elasticsearch.yml 
+  copy: src={{ templates_path }}/etc/elasticsearch.yml 
            dest={{ elastic_conf_dir }}/elasticsearch.yml
   notify: Restart elasticsearch
   tags: settings
 
 - name: Transfer [jvm.options]
-  copy: src=templates/etc/jvm.options
+  copy: src={{ templates_path }}/etc/jvm.options
            dest={{ elastic_conf_dir }}/jvm.options
   notify: Restart elasticsearch
   tags: settings
 
 - name: Transfer [log4j2.properties]
-  copy: src=templates/etc/log4j2.properties
+  copy: src={{ templates_path }}/etc/log4j2.properties
            dest={{ elastic_conf_dir }}/log4j2.properties
   notify: Restart elasticsearch
   tags: settings
 
 - name: Transfer [sysconfig/elasticsearch]
-  copy: src=templates/sysconfig/elasticsearch
+  copy: src={{ templates_path }}/sysconfig/elasticsearch
            dest=/etc/sysconfig/elasticsearch
   notify: Restart elasticsearch
   tags: settings

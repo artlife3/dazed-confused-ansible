@@ -15,7 +15,7 @@
   tags: install
 
 - name: Transfer /etc/logrotate.d/php
-  copy: src=templates/etc_logrotate.d/php
+  copy: src={{ templates_path }}/etc_logrotate.d/php
             dest=/etc/logrotate.d/php
             owner=root
             group=root
@@ -23,7 +23,7 @@
   tags: install
 
 - name: Transfer php.ini
-  copy: src=templates/php.ini
+  copy: src={{ templates_path }}/php.ini
             dest=/etc/php.ini
             owner={{ owner }}
             group={{ owner }}
@@ -32,7 +32,7 @@
   tags: settings
 
 - name: Transfer httpd/conf.d/php.conf
-  copy: src=templates/httpd_conf.d/php.conf
+  copy: src={{ templates_path }}/httpd_conf.d/php.conf
             dest={{ httpd_conf_dir }}/conf.d/php.conf
             owner={{ owner }}
             group={{ owner }}

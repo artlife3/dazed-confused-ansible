@@ -31,7 +31,7 @@
   tags: install
 
 - name: Transfer [logrotate.d/mysql]
-  copy: src=templates/etc_logrotate.d/mysql
+  copy: src={{ templates_path }}/etc_logrotate.d/mysql
             dest=/etc/logrotate.d/mysql
             owner=root
             group=root
@@ -39,7 +39,7 @@
   tags: install
 
 - name: Transfer [my.cnf]
-  copy: src=templates/my.cnf
+  copy: src={{ templates_path }}/my.cnf
             dest=/etc/my.cnf
             owner=mysql
             group=mysql
