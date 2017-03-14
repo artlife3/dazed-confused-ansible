@@ -5,8 +5,10 @@
     - common
     - firewall_selinux
     - imagemagick
+    - scm
     - httpd
     - mysqld
+    - memcached
     - php
     - enhancement
     - mailcatcher

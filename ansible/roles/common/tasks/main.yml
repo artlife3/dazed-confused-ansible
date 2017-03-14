@@ -12,7 +12,7 @@
   yum: name=ansible state=present
   tags: install
 
-- name: Install [ libselinux-python ]
+- name: Install [ libselinux-python ] (For ansible)
   yum: name=libselinux-python state=present
   tags: install
 
