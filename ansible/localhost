@@ -11,8 +11,15 @@ permission_dir=0777
 permission=ugo+rw
 time_zone=Tokyo/Asia
 log_dir=/var/log
-tomact_dir=/opt
+
+tomact_dir=/opt/tomcat
+tomcat_user=vagrant
+tomcat_group=vagrant
+
 elastic_conf_dir=/etc/httpd
+elastic_user=elasticsearch
+elastic_group=elasticsearch
+
 owner=vagrant
 group=vagrant
 

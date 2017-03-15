@@ -1,3 +1,17 @@
+- name: Install Java8
+  yum: name=java-1.8.0-openjdk-devel.x86_64
+  tags: install
+
+- name: add group "Elasticsearch"
+  group: name={{ elastic_group }}
+  tags: install
+
+- name: add user "Elasticsearch"
+  user: name={{ elastic_user }} group={{ elastic_group }} home=/home/{{ elastic_user }} createhome=no
+  tags: install
+
+  # Settings
+  
 - name: Transfer [elasticsearch.yml]
   copy: src={{ templates_path }}/etc/elasticsearch.yml 
            dest={{ elastic_conf_dir }}/elasticsearch.yml
