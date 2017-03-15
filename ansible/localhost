@@ -16,9 +16,9 @@ tomact_dir=/opt/tomcat
 tomcat_user=vagrant
 tomcat_group=vagrant
 
-elastic_conf_dir=/etc/httpd
+elastic_conf_dir=/etc/elasticsearch
 elastic_user=elasticsearch
-elastic_group=elasticsearch
+elastic_group=vagrant
 
 owner=vagrant
 group=vagrant

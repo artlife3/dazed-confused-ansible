@@ -1,3 +1,9 @@
+- name: Install Logstash
+  yum: name=logstash
+  tags: install
+
+# Settings
+ 
 - name: Transfer [logstash logstash.yml]
   copy: src={{ templates_path }}/logstash.yml
            dest=/etc/logstash.yml
