@@ -42,3 +42,22 @@
   become: no
   tags: settings
 
+# symbolic link
+
+- name: Create html symbolic link
+  file:
+    src: /var/www/html
+    dest: /home/{{ owner }}/html
+    state: link
+
+- name: Create html/admin symbolic link
+  file:
+    src: /var/www/html/admin
+    dest: /home/{{ owner }}/admin
+    state: link
+
+- name: Create log symbolic link
+  file:
+    src: "{{ log_dir }}"
+    dest: /home/{{ owner }}/log
+    state: link
