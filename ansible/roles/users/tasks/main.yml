@@ -1,7 +1,7 @@
 
 - name: Transfer [git-completion]
   synchronize: src={{ files_path }}/git-completion/
-               dest={{ tools_path }}/tools/git-completion
+               dest={{ tools_path }}/git-completion
   tags: settings
 
 - name: Transfer [~/.bach_profile]

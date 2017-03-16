@@ -18,6 +18,6 @@
 
 - name: Git clone bash_it
   git: repo=https://github.com/Bash-it/bash-it
-       dest={{ tools_path }}/tools/bash-it
+       dest={{ tools_path }}/bash-it
        version=master
 

@@ -2,20 +2,20 @@
   become: yes
   become_user: root
   roles:
-#    - common
-#    - firewall_selinux
-#    - imagemagick
-#    - scm
-#    - httpd
-#    - mysqld
-#    - memcached
-#    - php
-#    - enhancement
-#    - mailcatcher
-#    - tomcat
-#    - elasticsearch
-#    - kibana
-    - logstash
-#    - users
+    - common
+    - firewall_selinux
+    - imagemagick
+    - scm
+    - httpd
+    - mysqld
+    - memcached
+    - php
+    - enhancement
+    - ruby/mailcatcher
+    - java/tomcat
+    - java/elasticsearch/elasticsearch
+    - java/elasticsearch/kibana
+    - java/elasticsearch/logstash
+    - users
 
 

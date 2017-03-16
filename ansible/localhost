@@ -27,7 +27,9 @@ group=vagrant
 apache_user=vagrant
 apache_group=vagrant
 httpd_conf_dir=/etc/httpd
-tools_path=/opt
+
+tools_path=/opt/tools
+rbenv_path=/opt
 
 # MySQL
 mysq_user=mysql
