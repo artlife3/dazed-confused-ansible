@@ -27,6 +27,7 @@ group=vagrant
 apache_user=vagrant
 apache_group=vagrant
 httpd_conf_dir=/etc/httpd
+httpd_document_root=/var/www/html
 
 tools_path=/opt/tools
 rbenv_path=/opt
