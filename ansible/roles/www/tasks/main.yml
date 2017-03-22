@@ -61,6 +61,45 @@
 # Opcache
 - name: Git clone opcache
   git: repo=https://github.com/rlerdorf/opcache-status.git
-       dest={{ templates_path }}/admin/opcache-status
+       dest={{ httpd_document_root }}/admin/opcache-status
  
+# Apcu
+- name: Git clone apcu
+  git: repo=https://github.com/krakjoe/apcu.git
+       dest={{ httpd_document_root }}/admin/apcu
+
+# phpMemcacheAdmin
+- name: Git clone phpMemcacheAdmin
+  git: repo=https://github.com/elijaa/phpmemcacheadmin.git
+       dest={{ httpd_document_root }}/admin/phpmemcacheadmin
+
+# phpMyAdmin
+
+- name: Existence of phpMyAdmin directory
+  stat: path={{ httpd_document_root }}/admin/phpmyadmin
+  register: phpmyadmin
+  tags: admin
+
+- name: Download phpMyAdmin
+  get_url: url="https://files.phpmyadmin.net/phpMyAdmin/4.6.6/phpMyAdmin-4.6.6-all-languages.zip" dest={{ httpd_document_root }}/admin/ validate_certs=no
+  when: not phpmyadmin.stat.exists
+  tags: admin
+
+- name: Unarchive phpMyAdmin-4.6.6-all-languages.zip
+  unarchive: src={{ httpd_document_root }}/admin/phpMyAdmin-4.6.6-all-languages.zip dest={{ httpd_document_root }}/admin/ remote_src=True
+  when: not phpmyadmin.stat.exists
+  tags: admin
+
+- name: Remove phpMyAdmin-4.6.6-all-languages.zip
+  file: path={{ httpd_document_root }}/admin/phpMyAdmin-4.6.6-all-languages.zip state=absent
+  when: not phpmyadmin.stat.exists
+  tags: admin
+
+- name: Create phpMyAdmin symbolic link
+  file:
+    src: "{{ httpd_document_root }}/admin/phpMyAdmin-4.6.6-all-languages"
+    dest: "{{ httpd_document_root }}/admin/phpmyadmin"
+    state: link
+  when: not phpmyadmin.stat.exists
+  tags: admin
 
