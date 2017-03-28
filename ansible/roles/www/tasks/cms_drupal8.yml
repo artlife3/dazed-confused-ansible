@@ -32,10 +32,22 @@
   when: not drupal8.stat.exists
   tags: admin
 
+- name: Create sites/default/files folder
+  file: path={{ httpd_document_root }}/drupal8/sites/default/files
+         state=directory
+         owner={{ owner }}
+         group={{ group }}
+         mode=0775
+  when: not drupal8.stat.exists
+  tags: admin
 
-#  cd $PATH_WWW/$DIR_HTML/$DIR
-#  mkdir sites/default/files
-#  sudo chmod g+w sites/default/files
-#  cp sites/default/default.settings.php sites/default/settings.php
-#  sudo chown -R vagrant:vagrant $PATH_WWW/$DIR_HTML/$DIR
+- name: Copy settings.php
+  copy: src={{ httpd_document_root }}/drupal8/sites/default/default.settings.php
+        dest={{ httpd_document_root }}/drupal8/sites/default/settings.php
+        owner={{ owner }}
+        group={{ group }}
+        mode=0644
+        remote_src=true
+  when: not drupal8.stat.exists
+  tags: admin
 
