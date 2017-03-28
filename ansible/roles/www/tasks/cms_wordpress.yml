@@ -1,0 +1,32 @@
+# CMS Wordpress
+
+- name: Existence of Wordpress directory
+  stat: path={{ httpd_document_root }}/wordpress
+  register: wordpress
+  tags: admin
+
+- name: Create a new database with name 'wordpress'
+  become_user: vagrant
+  mysql_db:
+    name: wordpress
+    state: present
+  when: not wordpress.stat.exists
+  tags: admin
+
+- name: Download Wordpress
+  get_url: url="https://ja.wordpress.org/wordpress-4.7.2-ja.zip" dest={{ httpd_document_root }}/
+  when: not wordpress.stat.exists
+  tags: admin
+
+- name: Unarchive wordpress-4.7.2-ja.zip
+  unarchive: src={{ httpd_document_root }}/wordpress-4.7.2-ja.zip dest={{ httpd_document_root }}/ copy=no
+  when: not wordpress.stat.exists
+  tags: admin
+
+- name: Remove wordpress-4.7.2-ja.zip
+  file: path={{ httpd_document_root }}/wordpress-4.7.2-ja.zip state=absent
+  when: not wordpress.stat.exists
+  tags: admin
+
+
+
