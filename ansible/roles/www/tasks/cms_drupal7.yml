@@ -1,60 +1,60 @@
 # CMS Drupal7
 
 - name: Existence of Drupal7 directory
-  stat: path={{ httpd_document_root }}/drupal7
+  stat: path={{ httpd_document_root }}/{{ drupal7 }}
   register: drupal7
   tags: admin
 
 - name: Create a new database with name 'drupal7'
   become_user: vagrant
   mysql_db:
-    name: drupal7
+    name: "{{ drupal7 }}"
     state: present
   when: not drupal7.stat.exists
   tags: admin
 
-- name: Download Drupal7
-  get_url: url="https://ftp.drupal.org/files/projects/drupal-7.54.tar.gz" dest={{ httpd_document_root }}/
+- name: Download drupal7 source code
+  get_url: url="https://ftp.drupal.org/files/projects/{{ drupal7_version }}.tar.gz" dest={{ httpd_document_root }}/
   when: not drupal7.stat.exists
   tags: admin
 
-- name: Unarchive drupal-7.54.tar.gz
-  unarchive: src={{ httpd_document_root }}/drupal-7.54.tar.gz dest={{ httpd_document_root }}/ copy=no
+- name: Unarchive drupal-7.*.tar.gz
+  unarchive: src={{ httpd_document_root }}/{{ drupal7_version }}.tar.gz dest={{ httpd_document_root }}/ copy=no
   when: not drupal7.stat.exists
   tags: admin
 
 - name: Create a symbolic link of Drupal7
-  file: src={{ httpd_document_root }}/drupal-7.54 dest={{ httpd_document_root }}/drupal7 state=link
+  file: src={{ httpd_document_root }}/{{ drupal7_version }} dest={{ httpd_document_root }}/{{ drupal7 }} state=link
   when: not drupal7.stat.exists
   tags: admin
 
-- name: Remove drupal-7.54.tar.gz
-  file: path={{ httpd_document_root }}/drupal-7.54.tar.gz state=absent
+- name: Remove drupal-7.*.tar.gz
+  file: path={{ httpd_document_root }}/{{ drupal7_version }}.tar.gz state=absent
   when: not drupal7.stat.exists
   tags: admin
 
-- name: Create sites/default/files folder
-  file: path={{ httpd_document_root }}/drupal7/sites/default/files
+- name: Create drupal7/sites/default/files folder
+  file: path={{ httpd_document_root }}/{{ drupal7 }}/sites/default/files
          state=directory
          owner={{ owner }}
          group={{ group }}
-         mode=0775
+         mode={{ permission_dir }}
   when: not drupal7.stat.exists
   tags: admin
 
-- name: Copy settings.php
-  copy: src={{ httpd_document_root }}/drupal7/sites/default/default.settings.php
-        dest={{ httpd_document_root }}/drupal7/sites/default/settings.php
+- name: Copy drupal7 settings.php
+  copy: src={{ httpd_document_root }}/{{ drupal7 }}/sites/default/default.settings.php
+        dest={{ httpd_document_root }}/{{ drupal7 }}/sites/default/settings.php
         owner={{ owner }}
         group={{ group }}
-        mode=0644
+        mode={{ permission_file }}
         remote_src=true
   when: not drupal7.stat.exists
   tags: admin
 
-- name: Download Drupal7 translations
-  get_url: url="http://ftp.drupal.org/files/translations/7.x/drupal/drupal-7.54.ja.po"
-           dest={{ httpd_document_root }}//drupal7/profiles/standard/translations/
+- name: Download drupal7 translations
+  get_url: url="http://ftp.drupal.org/files/translations/7.x/drupal/{{ drupal7_version }}.ja.po"
+           dest={{ httpd_document_root }}//{{ drupal7 }}/profiles/standard/translations/
   when: not drupal7.stat.exists
   tags: admin
 

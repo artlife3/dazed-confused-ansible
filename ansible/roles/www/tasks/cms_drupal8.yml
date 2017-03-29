@@ -1,52 +1,53 @@
 # CMS Drupal8
 
 - name: Existence of Drupal8 directory
-  stat: path={{ httpd_document_root }}/drupal8
+  stat: path={{ httpd_document_root }}/{{ drupal8 }}
   register: drupal8
   tags: admin
 
 - name: Create a new database with name 'drupal8'
   become_user: vagrant
   mysql_db:
-    name: drupal8
+    name: "{{ drupal8 }}"
     state: present
   when: not drupal8.stat.exists
 
-- name: Download Drupal8
-  get_url: url="https://ftp.drupal.org/files/projects/drupal-8.2.6.tar.gz" dest={{ httpd_document_root }}/
+
+- name: Download drupal8 source code
+  get_url: url="https://ftp.drupal.org/files/projects/{{ drupal8_version }}.tar.gz" dest={{ httpd_document_root }}/
   when: not drupal8.stat.exists
   tags: admin
 
-- name: Unarchive drupal-8.2.6.tar.gz
-  unarchive: src={{ httpd_document_root }}/drupal-8.2.6.tar.gz dest={{ httpd_document_root }}/ copy=no
+- name: "Unarchive drupal-8.*.tar.gz"
+  unarchive: src={{ httpd_document_root }}/{{ drupal8_version }}.tar.gz dest={{ httpd_document_root }}/ copy=no
   when: not drupal8.stat.exists
   tags: admin
 
-- name: Create a symbolic link of Drupal8
-  file: src={{ httpd_document_root }}/drupal-8.2.6 dest={{ httpd_document_root }}/drupal8 state=link
+- name: Create a symbolic link of drupal8
+  file: src={{ httpd_document_root }}/{{ drupal8_version }} dest={{ httpd_document_root }}/{{ drupal8 }} state=link
   when: not drupal8.stat.exists
   tags: admin
 
-- name: Remove drupal-8.2.6.tar.gz
-  file: path={{ httpd_document_root }}/drupal-8.2.6.tar.gz state=absent
+- name: Remove drupal-8.*.tar.gz
+  file: path={{ httpd_document_root }}/{{ drupal8_version }}.tar.gz state=absent
   when: not drupal8.stat.exists
   tags: admin
 
-- name: Create sites/default/files folder
-  file: path={{ httpd_document_root }}/drupal8/sites/default/files
+- name: Create drupal8/sites/default/files folder
+  file: path={{ httpd_document_root }}/{{ drupal8 }}/sites/default/files
          state=directory
          owner={{ owner }}
          group={{ group }}
-         mode=0775
+         mode={{ permission_dir }}
   when: not drupal8.stat.exists
   tags: admin
 
-- name: Copy settings.php
-  copy: src={{ httpd_document_root }}/drupal8/sites/default/default.settings.php
-        dest={{ httpd_document_root }}/drupal8/sites/default/settings.php
+- name: Copy drupal8 settings.php
+  copy: src={{ httpd_document_root }}/{{ drupal8 }}/sites/default/default.settings.php
+        dest={{ httpd_document_root }}/{{ drupal8 }}/sites/default/settings.php
         owner={{ owner }}
         group={{ group }}
-        mode=0644
+        mode={{ permission_file }}
         remote_src=true
   when: not drupal8.stat.exists
   tags: admin
